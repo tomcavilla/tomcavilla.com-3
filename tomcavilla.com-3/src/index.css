@@ -1,0 +1,46 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=BBH+Sans+Hegarty&display=swap');
+
+@theme {
+    --font-display: "PilowLava", sans-serif;
+    --font-display--font-feature-settings: "cv02", "cv03", "cv04", "cv11"; 
+    --font-display--font-variation-settings: "opsz" 32; 
+}
+
+@font-face {
+    font-family: PilowLava;
+    font-style: normal;
+    font-weight: 200 700;
+    font-display: swap;
+    src: url('./assets/fonts/Pilowlava-Regular.woff2') format('woff2'),
+         url('./assets/fonts/Pilowlava-Regular.woff') format('woff');
+}
+
+
+/* Slideshow styles */
+    .slide {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+    .slide.active {
+      opacity: 1;
+      transform: translateY(0);
+      z-index: 10;
+    }
+
+    /* Collection button underline */
+    .collection-btn.active {
+      text-decoration: underline;
+      text-underline-offset: 6px;
+    }
+
+    /* Toolbar dropdown (extend) animation */
+    #menu {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+    }
+    #menu.show {
+      max-height: 20rem; /* adjust to fit menu items */
+    }
