@@ -114,17 +114,11 @@
   <main id="main-content" class="flex flex-col items-center transition-all duration-700 ease-in-out">
 
     <!-- Gallery Section -->
-  <section id="gallery-section" class="flex flex-col md:flex-row items-center gap-4 md:gap-8 opacity-100 transition-opacity duration-700 ease-in-out">
-  
-  <!-- Arrow Controls -->
-  <div class="flex flex-row md:flex-col items-center gap-4">
-    <button id="prev" class="arrow-btn text-2xl font-bold">↑</button>
-    <button id="next" class="arrow-btn text-2xl font-bold">↓</button>
-  </div>
+    <section id="gallery-section" class="flex flex-col md:flex-row items-center gap-4 md:gap-8 opacity-100 transition-opacity duration-700 ease-in-out">
 
-  <!-- Slideshow -->
-  <div class="relative w-screen md:w-[70vw] max-w-none aspect-[3/2] overflow-hidden shadow-lg">
-    <div id="slideshow" class="h-full w-full relative">
+      <!-- Slideshow -->
+      <div class="order-1 md:order-2 relative w-screen md:w-[70vw] max-w-none aspect-[3/2] overflow-hidden shadow-lg">
+        <div id="slideshow" class="h-full w-full relative">
         <!-- Nightlife Collection -->
         <img src="https://lh3.googleusercontent.com/pw/AP1GczP6JhqkvLCemg0rch77vcwYfuyHfUNjPz_iehgc9o9nZTGNesL9LGFgTvC1kXTwVd6NhBOzcC7bdGbGuMTLAmA7G_XU1-jqmZ5awfJs6l1M9-Bji-pe7NdKpAUCXXdXlYn5hYjAXLug3B7IhKWxOWuP=w1554-h1036-s-no-gm?authuser=0" 
             alt="Nightlife 1" class="absolute inset-0 w-full h-full object-cover slide active" data-collection="nightlife">
@@ -360,12 +354,19 @@
       </div>
     </div>
 
-<!-- Collection Buttons -->
-      <div class="flex flex-row md:flex-col gap-2 md:gap-4 mt-4 md:mt-0">
+    <!-- Collection Buttons -->
+    <div class="order-2 md:order-3 flex flex-row md:flex-col gap-2 md:gap-4 mt-4 md:mt-0">
       <button class="collection-btn text-lg font-medium hover:text-gray-600 transition-all" data-collection="nightlife">Nightlife</button>
       <button class="collection-btn text-lg font-medium hover:text-gray-600 transition-all" data-collection="events">Events</button>
       <button class="collection-btn text-lg font-medium hover:text-gray-600 transition-all" data-collection="personal">Personal</button>
     </div>
+
+    <!-- Arrow Controls -->
+    <div class="order-3 md:order-1 flex flex-row md:flex-col items-center justify-center gap-4 mt-4 md:mt-0">
+      <button id="prev" class="arrow-btn text-2xl font-bold">↑</button>
+      <button id="next" class="arrow-btn text-2xl font-bold">↓</button>
+    </div>
+
   </section>
 
     <!-- About Section -->
@@ -473,6 +474,10 @@
 
   document.getElementById('prev').onclick = showPrev;
   document.getElementById('next').onclick = showNext;
+
+  // Advance on slide click
+  const slideshow = document.getElementById('slideshow');
+  slideshow.addEventListener('click', showNext);
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowUp') showPrev();
