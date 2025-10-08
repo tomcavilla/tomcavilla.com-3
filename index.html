@@ -30,33 +30,54 @@
     font-weight: 400;
     letter-spacing: 0.01em;
   }
-    /* Slideshow styles */
-    .slide {
-      opacity: 0;
-      transform: translateY(50px);
-      transition: opacity 1s ease, transform 1s ease;
-    }
-    .slide.active {
-      opacity: 1;
-      transform: translateY(0);
-      z-index: 10;
-    }
 
-    /* Collection button underline */
-    .collection-btn.active {
-      text-decoration: underline;
-      text-underline-offset: 6px;
-    }
+  /* Slideshow styles */
+  .slide {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+  .slide.active {
+    opacity: 1;
+    transform: translateY(0);
+    z-index: 10;
+  }
 
-    /* Toolbar dropdown (extend) animation */
-    #menu {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.5s ease;
-    }
-    #menu.show {
-      max-height: 20rem; /* adjust to fit menu items */
-    }
+  /* Collection button underline */
+  .collection-btn.active {
+    text-decoration: underline;
+    text-underline-offset: 6px;
+  }
+
+  /* Toolbar dropdown (extend) animation */
+  #menu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+  }
+  #menu.show {
+    max-height: 20rem;
+  }
+
+  /* Fade animations for About section */
+  .fade-enter {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  .fade-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .fade-exit {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .fade-exit-active {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
   </style>
 </head>
 <body class="bg-white text-black flex flex-col items-center min-h-screen">
@@ -64,7 +85,11 @@
   <!-- Top Toolbar -->
   <header class="fixed top-0 left-0 w-full bg-white/90 backdrop-blur-md shadow-md z-50">
     <div class="flex justify-between items-center px-8 py-4">
-      <h1 class="name text-4xl font-semibold tracking-tight">Tom Cavilla</h1>
+      <h1 id="home-btn" class="name text-4xl font-semibold tracking-tight cursor-pointer">
+        Tom Cavilla
+      </h1>
+
+
       <button id="menu-btn" class="flex flex-col justify-center items-center gap-1 p-1">
         <span class="block w-6 h-0.5 bg-black"></span>
         <span class="block w-6 h-0.5 bg-black"></span>
@@ -75,6 +100,7 @@
     <!-- Extended Toolbar -->
     <div id="menu" class="bg-white shadow-inner">
       <nav class="flex flex-col px-8 py-4 gap-2">
+        <button id="about-btn" class="text-left hover:bg-gray-100 px-4 py-2 rounded">About</button>
         <a href="mailto:contact@tomcavilla.com" class="hover:bg-gray-100 px-4 py-2 rounded">Contact</a>
         <a href="https://www.instagram.com/tomcavilla" class="hover:bg-gray-100 px-4 py-2 rounded">Instagram</a>
       </nav>
@@ -84,17 +110,21 @@
   <!-- Spacer to push content below fixed header -->
   <div class="h-24"></div>
 
-  <!-- Slideshow Section -->
-  <div class="flex items-center gap-8">
-    <!-- Arrow Controls -->
-    <div class="flex flex-col items-center gap-4">
-      <button id="prev" class="arrow-btn text-2xl font-bold">↑</button>
-      <button id="next" class="arrow-btn text-2xl font-bold">↓</button>
-    </div>
+  <!-- Main Content Wrapper -->
+  <main id="main-content" class="flex flex-col items-center transition-all duration-700 ease-in-out">
 
-    <!-- Slideshow -->
-    <div class="relative w-[70vw] max-w-5xl aspect-[3/2] overflow-hidden shadow-lg">
-      <div id="slideshow" class="h-full w-full relative">
+    <!-- Gallery Section -->
+  <section id="gallery-section" class="flex flex-col md:flex-row items-center gap-4 md:gap-8 opacity-100 transition-opacity duration-700 ease-in-out">
+  
+  <!-- Arrow Controls -->
+  <div class="flex flex-row md:flex-col items-center gap-4">
+    <button id="prev" class="arrow-btn text-2xl font-bold">↑</button>
+    <button id="next" class="arrow-btn text-2xl font-bold">↓</button>
+  </div>
+
+  <!-- Slideshow -->
+  <div class="relative w-full md:w-[70vw] max-w-5xl aspect-[3/2] overflow-hidden shadow-lg">
+    <div id="slideshow" class="h-full w-full relative">
         <!-- Nightlife Collection -->
         <img src="https://lh3.googleusercontent.com/pw/AP1GczP6JhqkvLCemg0rch77vcwYfuyHfUNjPz_iehgc9o9nZTGNesL9LGFgTvC1kXTwVd6NhBOzcC7bdGbGuMTLAmA7G_XU1-jqmZ5awfJs6l1M9-Bji-pe7NdKpAUCXXdXlYn5hYjAXLug3B7IhKWxOWuP=w1554-h1036-s-no-gm?authuser=0" 
             alt="Nightlife 1" class="absolute inset-0 w-full h-full object-cover slide active" data-collection="nightlife">
@@ -332,86 +362,199 @@
       </div>
     </div>
 
-    <!-- Collection Buttons -->
-    <div class="flex flex-col gap-4">
+<!-- Collection Buttons -->
+      <div class="flex flex-row md:flex-col gap-2 md:gap-4 mt-4 md:mt-0">
       <button class="collection-btn text-lg font-medium hover:text-gray-600 transition-all" data-collection="nightlife">Nightlife</button>
       <button class="collection-btn text-lg font-medium hover:text-gray-600 transition-all" data-collection="events">Events</button>
       <button class="collection-btn text-lg font-medium hover:text-gray-600 transition-all" data-collection="personal">Personal</button>
     </div>
-  </div>
+  </section>
 
-  <!-- Slide Counter -->
-  <div id="counter" class="text-center text-base text-gray-600 mt-6"></div>
+    <!-- About Section -->
+    <section id="about-section" class="hidden max-w-3xl text-center px-8 mt-12">
+      <h2 class="text-3xl font-semibold mb-6">About</h2>
+      <p class="text-lg leading-relaxed text-gray-700">
+        Hi I'm Tom Cavilla, an events photographer based in Exeter. I spend my time capturing everything from university society balls, sports matches, and concerts, to nights out at local clubs with 4play.
+
+        If you have an event that you'd like me to cover, please get in touch via email at <a href="mailto:contact@tomcavilla.com">contact@tomcavilla.com</a> or on Instagram at <a href="https://www.instagram.com/tomcavilla/" target="_blank" rel="noopener noreferrer">@tomcavilla</a>.
+      </p>
+      <button id="back-btn" class="mt-8 px-6 py-2 bg-black text-white rounded hover:bg-gray-800 transition-all">
+        Back
+      </button>
+    </section>
+
+    <!-- Slide Counter -->
+    <div id="counter" class="text-center text-base text-gray-600 mt-6"></div>
+  </main>
 
   <!-- JavaScript -->
   <script>
-    // Toolbar dropdown
-    const menuBtn = document.getElementById('menu-btn');
-    const menu = document.getElementById('menu');
+  // Toolbar dropdown
+  const menuBtn = document.getElementById('menu-btn');
+  const menu = document.getElementById('menu');
+  const aboutBtn = document.getElementById('about-btn');
+  const gallery = document.getElementById('gallery-section');
+  const about = document.getElementById('about-section');
+  const counter = document.getElementById('counter');
 
-    menuBtn.addEventListener('click', () => {
-      menu.classList.toggle('show');
-    });
+  menuBtn.addEventListener('click', () => {
+    menu.classList.toggle('show');
+  });
 
-    document.addEventListener('click', (e) => {
-      if (!menu.contains(e.target) && !menuBtn.contains(e.target)) {
-        menu.classList.remove('show');
-      }
-    });
-
-    // Slideshow
-    const slides = document.querySelectorAll('.slide');
-    const collectionButtons = document.querySelectorAll('.collection-btn');
-    const counter = document.getElementById('counter');
-
-    let index = 0;
-    let activeCollection = 'nightlife';
-
-    function getCollectionSlides(collection) {
-      return Array.from(slides).filter(s => s.dataset.collection === collection);
+  document.addEventListener('click', (e) => {
+    if (!menu.contains(e.target) && !menuBtn.contains(e.target)) {
+      menu.classList.remove('show');
     }
+  });
 
-    function updateCounter() {
-      const collectionSlides = getCollectionSlides(activeCollection);
-      counter.textContent = `${index + 1} / ${collectionSlides.length}`;
+  // Show About Section with smooth fade
+  let aboutVisible = false;
+  aboutBtn.addEventListener('click', () => {
+    aboutVisible = !aboutVisible;
+    menu.classList.remove('show'); // close menu
+
+    if (aboutVisible) {
+      // Fade out gallery + counter
+      gallery.classList.add('opacity-0');
+      counter.classList.add('opacity-0');
+
+      setTimeout(() => {
+        gallery.classList.add('hidden');
+        counter.classList.add('hidden');
+
+        // Fade in About
+        about.classList.remove('hidden');
+        about.classList.add('fade-enter');
+        requestAnimationFrame(() => about.classList.add('fade-enter-active'));
+        setTimeout(() => about.classList.remove('fade-enter', 'fade-enter-active'), 800);
+      }, 700);
+    } else {
+      // Fade out About
+      about.classList.add('fade-exit');
+      requestAnimationFrame(() => about.classList.add('fade-exit-active'));
+      setTimeout(() => {
+        about.classList.add('hidden');
+        about.classList.remove('fade-exit', 'fade-exit-active');
+
+        // Fade in gallery + counter
+        gallery.classList.remove('hidden');
+        counter.classList.remove('hidden');
+        requestAnimationFrame(() => {
+          gallery.classList.remove('opacity-0');
+          counter.classList.remove('opacity-0');
+        });
+      }, 800);
     }
+  });
 
-    function showSlide(i) {
-      const collectionSlides = getCollectionSlides(activeCollection);
-      collectionSlides.forEach(slide => slide.classList.remove('active'));
-      index = (i + collectionSlides.length) % collectionSlides.length;
-      collectionSlides[index].classList.add('active');
+  // Slideshow logic
+  const slides = document.querySelectorAll('.slide');
+  const collectionButtons = document.querySelectorAll('.collection-btn');
+  let index = 0;
+  let activeCollection = 'nightlife';
+
+  function getCollectionSlides(collection) {
+    return Array.from(slides).filter(s => s.dataset.collection === collection);
+  }
+
+  function updateCounter() {
+    const collectionSlides = getCollectionSlides(activeCollection);
+    counter.textContent = `${index + 1} / ${collectionSlides.length}`;
+  }
+
+  function showSlide(i) {
+    const collectionSlides = getCollectionSlides(activeCollection);
+    collectionSlides.forEach(slide => slide.classList.remove('active'));
+    index = (i + collectionSlides.length) % collectionSlides.length;
+    if (collectionSlides[index]) collectionSlides[index].classList.add('active');
+    updateCounter();
+  }
+
+  function showNext() { showSlide(index + 1); }
+  function showPrev() { showSlide(index - 1); }
+
+  document.getElementById('prev').onclick = showPrev;
+  document.getElementById('next').onclick = showNext;
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowUp') showPrev();
+    if (e.key === 'ArrowDown') showNext();
+  });
+
+  collectionButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeCollection = btn.dataset.collection;
+      index = 0;
+      slides.forEach(slide => slide.classList.remove('active'));
+      const newSlides = getCollectionSlides(activeCollection);
+      if (newSlides[0]) newSlides[0].classList.add('active');
+      collectionButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
       updateCounter();
-    }
-
-    function showNext() { showSlide(index + 1); }
-    function showPrev() { showSlide(index - 1); }
-
-    document.getElementById('prev').onclick = showPrev;
-    document.getElementById('next').onclick = showNext;
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowUp') showPrev();
-      if (e.key === 'ArrowDown') showNext();
     });
+  });
 
-    collectionButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        activeCollection = btn.dataset.collection;
-        index = 0;
-        slides.forEach(slide => slide.classList.remove('active'));
-        const newSlides = getCollectionSlides(activeCollection);
-        newSlides[0].classList.add('active');
-        collectionButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        updateCounter();
+  // Initialize first slide and active button
+  showSlide(index);
+  collectionButtons.forEach(b => {
+    if (b.dataset.collection === activeCollection) b.classList.add('active');
+  });
+
+const backBtn = document.getElementById('back-btn');
+
+backBtn.addEventListener('click', () => {
+  if (aboutVisible) {
+    // Trigger the same logic as toggling About off
+    aboutVisible = false;
+
+    // Fade out About
+    about.classList.add('fade-exit');
+    requestAnimationFrame(() => about.classList.add('fade-exit-active'));
+    setTimeout(() => {
+      about.classList.add('hidden');
+      about.classList.remove('fade-exit', 'fade-exit-active');
+
+      // Fade in gallery + counter
+      gallery.classList.remove('hidden');
+      counter.classList.remove('hidden');
+      requestAnimationFrame(() => {
+        gallery.classList.remove('opacity-0');
+        counter.classList.remove('opacity-0');
       });
-    });
+    }, 800);
+  }
+});
 
-    showSlide(index);
-    collectionButtons.forEach(b => {
-      if(b.dataset.collection === activeCollection) b.classList.add('active');
-    });
-  </script>
+const homeBtn = document.getElementById('home-btn');
+
+homeBtn.addEventListener('click', () => {
+  if (aboutVisible) {
+    // Same logic as back button
+    aboutVisible = false;
+
+    // Fade out About
+    about.classList.add('fade-exit');
+    requestAnimationFrame(() => about.classList.add('fade-exit-active'));
+    setTimeout(() => {
+      about.classList.add('hidden');
+      about.classList.remove('fade-exit', 'fade-exit-active');
+
+      // Fade in gallery + counter
+      gallery.classList.remove('hidden');
+      counter.classList.remove('hidden');
+      requestAnimationFrame(() => {
+        gallery.classList.remove('opacity-0');
+        counter.classList.remove('opacity-0');
+      });
+    }, 800);
+  } else {
+    // Optionally, you could scroll to top if already on gallery
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+});
+
+
+</script>
+
 </body>
 </html>
